@@ -9,4 +9,4 @@ GuessCount.propTypes = {
   guesses: PropTypes.number.isRequired,
 }
 
-export default GuessCount
+export default Guess

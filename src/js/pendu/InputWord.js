@@ -1,25 +1,29 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react';
 
-import '../css/InputWord.css'
+import '../../css/InputWord.css'
 
 class InputWord extends Component{
     
-    constructor(probs){
-        super(probs);
+    
+    constructor(props){
+        super(props);
         this.state = { value : ''}
-        this.refresh = probs.refresh
+        this.refresh = props.OnChange
     }
  
     masque = function(value){
         return value
-        .replace(/\S|\W/, '')
-        .replace(/\S/,'_')
+        
+        .replace(/[^\s\w]|\d/gi, '')
+        .replace(/\S/gi,'_')
     }
 
-    onChange = function({ target: { value } }){
-        this.setState({value : masque(value)})
-        refresh(value.toUpperCase())
+    onChange = ({ target: { value } }) => {
+        
+        if(this.state.value.lenght>value){value=''}
+        this.setState({value : this.masque(value)})
+        this.refresh(value.toUpperCase())
     }
 
     render(){
@@ -29,7 +33,7 @@ class InputWord extends Component{
             <input
             autoComplete= "put a word" 
             onChange = {this.onChange}
-            values = {value}
+            value = {value}
             type="text"/>
          </div>
         )

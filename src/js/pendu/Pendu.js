@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import InPlay from'./InPlay.js'
 import InputWord from './InputWord.js'
 
-import '../css/Pendu.css'
+import '../../css/Pendu.css'
 
 class Pendu extends Component{
 
     constructor(probs){
         super(probs);
+        this.state = this.initState ;
     }
 
     initState = {
@@ -17,7 +18,7 @@ class Pendu extends Component{
         word : '',
     }
 
-    state = initState ;
+    
 
     // Arrow fx for binding
     // show win message for 7 secondes after that fonction will restart the game
@@ -27,7 +28,11 @@ class Pendu extends Component{
 
     // Arrow fx for binding
     refreshWord = (newWord) => {
-        state.word = newWord;
+        var {word} = this.state
+        if(newWord === ''){this.state.word = newWord;}
+        else{
+            this.state.word = word + newWord.slice(word.lenght)
+        }   
     }
 
     render() {
@@ -35,20 +40,20 @@ class Pendu extends Component{
         return(
             <div className = "Pendu">
                 {   win ? (
-                    <img className = "WinImage" ref = "./public/win.jpg"/>
+                    <img alt="win" height="42" width="42" src = "../../../public/win.jpg"/>
                     ):
                     (
                         inPlay ? (
                                 <div className = "InPlay">
                                 <InPlay word = {word} OnWin = {this.OnWin}/>
                                 <button className = "ChangeModeButton Restart" onClick = {()=>
-                                    this.setState({inPlay = false})}>Restart</button>
+                                    this.setState(this.initState)}>Restart</button>
                             </div>
                         ):
                         (   <div className = "InputWord">
                                 <InputWord OnChange = {this.refreshWord}/>
                                 <button className = "ChangeModeButton Start" onClick = {()=>
-                                this.setState({inPlay = true})}>Start</button>
+                                this.setState({inPlay : true})}>Start</button>
                             </div>   
                         )
                     )

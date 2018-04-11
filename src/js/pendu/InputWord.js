@@ -10,6 +10,7 @@ class InputWord extends Component{
         super(props);
         this.state = { value : ''}
         this.refresh = props.OnChange
+        console.log()
     }
  
     masque = function(value){
@@ -21,9 +22,12 @@ class InputWord extends Component{
 
     onChange = ({ target: { value } }) => {
         
-        if(this.state.value.lenght>value){value=''}
-        this.setState({value : this.masque(value)})
+        if(this.state.value.length>value.length){
+            value=''
+        }
+        this.setState({value : this.masque(value)},()=>{console.log("after masque "+value)})
         this.refresh(value.toUpperCase())
+        
     }
 
     render(){

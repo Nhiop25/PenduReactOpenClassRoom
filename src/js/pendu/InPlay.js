@@ -13,13 +13,10 @@ class InPlay extends Component{
         super(probs);
         this.state = this.initState
         this.word = probs.word
-        console.log(this.word)
+        console.log(this.word+"coucou")
         this.OnWin = probs.OnWin
     }
-
-    // distribute the rest of the Euclidean division
     
-
     //divide an array into an array of array 
     toMatrice = (array,nbByLigne) => {
         var result = []
@@ -37,7 +34,7 @@ class InPlay extends Component{
             <tbody>
                 <tr>
                     {this.word.split('').map((letter,index)=>(
-                        <td className="letterCache" key = {index}>{found.includes(letter) ? letter :' _ '}</td>
+                        <td className="letterCache" key = {index}>{found.includes(letter)|letter === ' ' ? ' '+letter+'  ' : ' _ '}</td>
                     ))}
                 </tr>
             </tbody>
@@ -57,6 +54,7 @@ class InPlay extends Component{
             </tbody>
         </table>
     )
+
     distinctCount(word){
         var temp = []
         var result = 0
@@ -80,6 +78,7 @@ class InPlay extends Component{
         }
         this.setState({found:found,notCliked : newNotCliked })
         console.log(this.distinctCount(this.word))
+        //check if the word have been completing
         if(this.distinctCount(this.word)===found.length){
             this.OnWin()
         }
@@ -87,7 +86,7 @@ class InPlay extends Component{
     }
 
     render(){
-        const {found,cliked,notCliked} = this.state
+        const {found,notCliked} = this.state
         return(
             
             <div className = "inPlay">

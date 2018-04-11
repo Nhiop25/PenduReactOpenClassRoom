@@ -9,7 +9,7 @@ class Pendu extends Component{
 
     constructor(probs){
         super(probs);
-        this.state = this.initState ;
+        this.state = {...this.initState} ;
     }
 
     initState = {
@@ -23,24 +23,31 @@ class Pendu extends Component{
     // Arrow fx for binding
     // show win message for 7 secondes after that fonction will restart the game
     OnWin = () => {
-        this.setState( {win : true} , ()=>{ setTimeout(7000, ()=> this.setState(this.initState) ) })
+        this.setState( {win : true} , ()=>{ 
+            setTimeout(()=> this.setState({...this.initState}) ,5000);
+        })
     }
 
     // Arrow fx for binding
     refreshWord = (newWord) => {
+        newWord = newWord.replace(/[^\s\w]|\d/gi, '')
         var {word} = this.state
         if(newWord === ''){this.state.word = newWord;}
         else{
-            this.state.word = word + newWord.slice(word.lenght)
+            console.log("before slice"+this.state.word)
+            this.state.word = word + newWord.slice(word.length)
+            
         }   
+        console.log("after refresh "+this.state.word)
     }
 
     render() {
         const {inPlay,win,word} = this.state;
+
         return(
             <div className = "Pendu">
                 {   win ? (
-                    <img alt="win" height="42" width="42" src = "../../../public/win.jpg"/>
+                    <img alt="win" height="420" width="420" src = "https://i.imgflip.com/k98rh.jpg"/>
                     ):
                     (
                         inPlay ? (

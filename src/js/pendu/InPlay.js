@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import Guess from Guess.js
 import '../../css/InPlay.css'
 
 class InPlay extends Component{

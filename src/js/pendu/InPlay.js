@@ -7,11 +7,12 @@ class InPlay extends Component{
     initState = {
         found : [],
         notCliked : ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+        guess : 0
     }
    
     constructor(probs){
         super(probs);
-        this.state = this.initState
+        this.state = {...this.initState}
         this.word = probs.word
         console.log(this.word+"coucou")
         this.OnWin = probs.OnWin
@@ -86,12 +87,13 @@ class InPlay extends Component{
     }
 
     render(){
-        const {found,notCliked} = this.state
+        const {found,notCliked,guess} = this.state
         return(
             
             <div className = "inPlay">
                 <this.LetterCache found = {found}/>
                 <this.letterAvailable notCliked = {notCliked} onClick = {this.onClick}/>
+                <Guess guesses = {guess}/>
             </div>
         )
     }
